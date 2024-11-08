@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>quick-guide</title>
+      <link href="/2024/11/04/quick-guide/"/>
+      <url>/2024/11/04/quick-guide/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Windows相关"><a href="#Windows相关" class="headerlink" title="Windows相关"></a>Windows相关</h1><p><a href="https://rizonesoft.com/downloads/complete-internet-repair/">网络修复工具</a></p><h1 id="前端相关"><a href="#前端相关" class="headerlink" title="前端相关"></a>前端相关</h1><ol><li><a href="https://gitcode.csdn.net/65e6e87f1a836825ed7879c9.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTIyMTI3OCwiZXhwIjoxNzMwODE1MzY0LCJpYXQiOjE3MzAyMTA1NjQsInVzZXJuYW1lIjoiaGFzYWlpaSJ9.9xIwzpr8ZblDzhKAQMd9hmJftEx-UwAiJ842WTl7u8w&spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~activity-1-129362462-blog-110559838.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~activity-1-129362462-blog-110559838.235%5Ev43%5Econtrol&utm_relevant_index=2">NodeJS安装-1</a></li><li><a href="https://www.cnblogs.com/yang37/p/18423524">NodeJS安装以及pnpm安装</a></li></ol><h1 id="电视直播相关"><a href="#电视直播相关" class="headerlink" title="电视直播相关"></a>电视直播相关</h1><p><a href="https://www.upx8.com/2822">TVbox 电视TV盒子APK（持续更新）</a></p><p><strong>电视直播</strong><br>公众号：科技长青<br>关键词： tvbox，电视直播</p><h1 id="NAS相关"><a href="#NAS相关" class="headerlink" title="NAS相关"></a>NAS相关</h1><p><a href="https://docs.zerotier.com/synology/">如何在群晖中使用Zerotier</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>博客相关</title>
+      <link href="/2024/11/04/about-blog-1/"/>
+      <url>/2024/11/04/about-blog-1/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2024/09/10/hello-world/"/>
+      <url>/2024/09/10/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
