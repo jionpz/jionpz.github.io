@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo 与 Obsidian 协同方案 | Jionpz</title><meta name="author" content="jionpz"><meta name="copyright" content="jionpz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="用 Obsidian 管理内容、用 Hexo 负责发布的一套稳定博客工作流设计。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 与 Obsidian 协同方案">
+<meta property="og:url" content="http://example.com/2026/03/07/obsidian-hexo-workflow/index.html">
+<meta property="og:site_name" content="Jionpz">
+<meta property="og:description" content="用 Obsidian 管理内容、用 Hexo 负责发布的一套稳定博客工作流设计。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-03-07T14:30:00.000Z">
+<meta property="article:modified_time" content="2026-03-07T16:10:00.000Z">
+<meta property="article:author" content="jionpz">
+<meta property="article:tag" content="Obsidian">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="工作流">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/03/07/obsidian-hexo-workflow/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo 与 Obsidian 协同方案',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-08 00:10:00',
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/butterfly-icon.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-opne"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jionpz</span></a><a class="nav-page-title" href="/"><span class="site-name">Hexo 与 Obsidian 协同方案</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-opne"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Hexo 与 Obsidian 协同方案</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-07T14:30:00.000Z" title="发表于 2026-03-07 22:30:00">2026-03-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-07T16:10:00.000Z" title="更新于 2026-03-08 00:10:00">2026-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/">知识管理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>我现在同时在维护两套系统：</p>
+<ul>
+<li>一个 Obsidian Vault，用来记录知识、沉淀笔记、整理写作素材</li>
+<li>一个独立的 Hexo 项目，用来生成博客、预览页面和部署发布</li>
+</ul>
+<p>因为两边都在处理 Markdown，所以很自然会冒出一个想法：</p>
+<p><strong>要不要把 Hexo 项目直接搬进 Obsidian 里统一管理？</strong></p>
+<p>这个想法短期看很合理，但仔细分析后，我越来越倾向于另一种方案：</p>
+<p><strong>不把它们硬合并，而是让 Obsidian 负责内容，Hexo 负责发布。</strong></p>
+<p>这篇文章想回答的，就是这个问题：</p>
+<blockquote>
+<p>对于“知识库 + 博客发布”这种场景，怎样组织结构，才更适合长期维护？</p>
+</blockquote>
+<h2 id="一、为什么会想把-Hexo-和-Obsidian-放在一起"><a href="#一、为什么会想把-Hexo-和-Obsidian-放在一起" class="headerlink" title="一、为什么会想把 Hexo 和 Obsidian 放在一起"></a>一、为什么会想把 Hexo 和 Obsidian 放在一起</h2><p>这个念头其实很常见，因为表面上看，它们处理的都是 Markdown 文件。</p>
+<p>于是很容易得出一个直觉：</p>
+<ul>
+<li>笔记是 Markdown</li>
+<li>博客文章也是 Markdown</li>
+<li>那不如全部放在一个地方</li>
+</ul>
+<p>这种做法在早期确实有吸引力：</p>
+<ul>
+<li>写作入口统一</li>
+<li>文件集中</li>
+<li>不用来回切换目录</li>
+<li>看起来更“省事”</li>
+</ul>
+<p>但问题往往不是一开始出现，而是在内容逐渐增多之后才显现出来。</p>
+<h2 id="二、为什么我不推荐把整个-Hexo-项目搬进-Vault"><a href="#二、为什么我不推荐把整个-Hexo-项目搬进-Vault" class="headerlink" title="二、为什么我不推荐把整个 Hexo 项目搬进 Vault"></a>二、为什么我不推荐把整个 Hexo 项目搬进 Vault</h2><p>我现在不太推荐把整个 Hexo 工程直接塞进 Obsidian Vault，主要有三个原因。</p>
+<h3 id="1-内容层和工程层不是一回事"><a href="#1-内容层和工程层不是一回事" class="headerlink" title="1. 内容层和工程层不是一回事"></a>1. 内容层和工程层不是一回事</h3><p>Obsidian 更适合做的是：</p>
+<ul>
+<li>知识笔记</li>
+<li>灵感记录</li>
+<li>草稿写作</li>
+<li>双链组织</li>
+<li>长期内容沉淀</li>
+</ul>
+<p>Hexo 更适合做的是：</p>
+<ul>
+<li>页面渲染</li>
+<li>主题管理</li>
+<li>本地预览</li>
+<li>配置管理</li>
+<li>部署发布</li>
+</ul>
+<p>它们都和“文章”有关，但扮演的角色并不一样。</p>
+<p>如果把两者混在一起，后面很容易出现这些情况：</p>
+<ul>
+<li>笔记目录里混入工程文件</li>
+<li>博客工程里混入大量未发布内容</li>
+<li>草稿、正式文章、知识笔记的边界越来越模糊</li>
+</ul>
+<p>短期方便，长期会越来越难维护。</p>
+<h3 id="2-Obsidian-会被工程文件污染"><a href="#2-Obsidian-会被工程文件污染" class="headerlink" title="2. Obsidian 会被工程文件污染"></a>2. Obsidian 会被工程文件污染</h3><p>如果整个 Hexo 项目进入 Vault，通常会出现这些内容：</p>
+<ul>
+<li><code>package.json</code></li>
+<li><code>_config.yml</code></li>
+<li><code>themes/</code></li>
+<li><code>node_modules/</code></li>
+<li><code>public/</code></li>
+</ul>
+<p>这些文件对 Hexo 是正常的，但对 Obsidian 来说，它们不是内容，而是工程噪音。</p>
+<p>直接带来的影响通常有：</p>
+<ul>
+<li>搜索结果变吵</li>
+<li>文件树变乱</li>
+<li>图谱失真</li>
+<li>阅读和写作的注意力被打断</li>
+</ul>
+<p>如果你的 Vault 本来是知识库，这种污染会非常明显。</p>
+<h3 id="3-草稿和正式文章容易混在一起"><a href="#3-草稿和正式文章容易混在一起" class="headerlink" title="3. 草稿和正式文章容易混在一起"></a>3. 草稿和正式文章容易混在一起</h3><p>不分层时，最常见的问题不是技术问题，而是内容管理问题。</p>
+<p>比如：</p>
+<ul>
+<li>一些只是草稿的内容被放进发布目录</li>
+<li>一些尚未整理好的笔记被当作文章维护</li>
+<li>一些原本只适合内部沉淀的内容被过早公开化</li>
+</ul>
+<p>一开始可能只是“先凑合”，但后面会越来越难判断：</p>
+<p><strong>哪些内容是知识笔记，哪些内容是博客草稿，哪些内容已经适合发布。</strong></p>
+<h2 id="三、我更推荐的方案：内容层与发布层分离"><a href="#三、我更推荐的方案：内容层与发布层分离" class="headerlink" title="三、我更推荐的方案：内容层与发布层分离"></a>三、我更推荐的方案：内容层与发布层分离</h2><p>比起“全部塞进一个目录”，我现在更认同一种分工明确的结构：</p>
+<ul>
+<li><strong>Obsidian 是内容主库</strong></li>
+<li><strong>Hexo 是发布工程</strong></li>
+</ul>
+<p>也就是说，两边不是竞争关系，而是协作关系。</p>
+<h3 id="Obsidian-负责什么"><a href="#Obsidian-负责什么" class="headerlink" title="Obsidian 负责什么"></a>Obsidian 负责什么</h3><p>Obsidian 更适合承担这些工作：</p>
+<ul>
+<li>记录灵感</li>
+<li>写草稿</li>
+<li>沉淀知识</li>
+<li>整理素材</li>
+<li>规划系列文章</li>
+<li>维护模板和标签体系</li>
+</ul>
+<h3 id="Hexo-负责什么"><a href="#Hexo-负责什么" class="headerlink" title="Hexo 负责什么"></a>Hexo 负责什么</h3><p>Hexo 更适合承担这些工作：</p>
+<ul>
+<li>渲染页面</li>
+<li>处理 permalink</li>
+<li>管理主题表现</li>
+<li>提供本地预览</li>
+<li>构建静态页面</li>
+<li>执行部署发布</li>
+</ul>
+<p>真正需要打通的，其实只有两类内容：</p>
+<ul>
+<li>正式文章</li>
+<li>发布所需图片资源</li>
+</ul>
+<p>这就足够了。</p>
+<h2 id="四、我采用的目录结构"><a href="#四、我采用的目录结构" class="headerlink" title="四、我采用的目录结构"></a>四、我采用的目录结构</h2><p>为了让这套协同关系稳定下来，我给内容层和发布层分别定义了边界。</p>
+<h3 id="Obsidian-侧：内容主库"><a href="#Obsidian-侧：内容主库" class="headerlink" title="Obsidian 侧：内容主库"></a>Obsidian 侧：内容主库</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">04-Blog/</span><br><span class="line">  00-Ideas/</span><br><span class="line">  01-Drafts/</span><br><span class="line">  02-Posts/</span><br><span class="line">  04-Assets/</span><br><span class="line">  99-Templates/</span><br></pre></td></tr></table></figure>
+
+<p>这几个目录的职责分别是：</p>
+<ul>
+<li><code>00-Ideas</code>：只放选题、灵感、提纲</li>
+<li><code>01-Drafts</code>：只放还在写的草稿</li>
+<li><code>02-Posts</code>：只放已经达到发布标准的正式文章</li>
+<li><code>04-Assets</code>：只放博客使用的图片和附件</li>
+<li><code>99-Templates</code>：统一存放模板</li>
+</ul>
+<p>这套结构的核心思想是：</p>
+<p><strong>不要让“还在思考中的内容”和“准备发布的内容”混在一起。</strong></p>
+<h3 id="Hexo-侧：发布工程"><a href="#Hexo-侧：发布工程" class="headerlink" title="Hexo 侧：发布工程"></a>Hexo 侧：发布工程</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">  _posts/</span><br><span class="line">  img/</span><br></pre></td></tr></table></figure>
+
+<p>Hexo 不需要读取我的整个知识库，它只需要接触：</p>
+<ul>
+<li><code>source/_posts</code>：正式文章</li>
+<li><code>source/img</code>：发布图片</li>
+</ul>
+<p>这样 Hexo 只面对“可发布内容”，不会误碰草稿和知识笔记。</p>
+<h2 id="五、一篇文章应该怎样流动"><a href="#五、一篇文章应该怎样流动" class="headerlink" title="五、一篇文章应该怎样流动"></a>五、一篇文章应该怎样流动</h2><p>我希望以后每篇文章都遵循同一条路径：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Idea -&gt; Draft -&gt; Post -&gt; Hexo Preview -&gt; Publish</span><br></pre></td></tr></table></figure>
+
+<p>对应到目录就是：</p>
+<ol>
+<li>先在 <code>00-Ideas</code> 记录想法</li>
+<li>再在 <code>01-Drafts</code> 写成草稿</li>
+<li>成熟后移到 <code>02-Posts</code></li>
+<li>再同步到 Hexo 的 <code>source/_posts</code></li>
+<li>本地预览没问题后再发布</li>
+</ol>
+<p>这条流程看起来多了几步，但换来的是更清晰的内容边界：</p>
+<ul>
+<li>想法不会丢</li>
+<li>草稿不会误发</li>
+<li>正式文章区始终干净</li>
+<li>发布工程只处理真正要发布的内容</li>
+</ul>
+<h2 id="六、为什么这套结构更适合长期维护"><a href="#六、为什么这套结构更适合长期维护" class="headerlink" title="六、为什么这套结构更适合长期维护"></a>六、为什么这套结构更适合长期维护</h2><p>我现在越来越重视一件事：</p>
+<p><strong>工具可以换，但内容结构最好不要反复推翻。</strong></p>
+<p>从这个角度看，内容层和发布层分离，至少有三个明显优势。</p>
+<h3 id="1-内容不会被发布工具绑死"><a href="#1-内容不会被发布工具绑死" class="headerlink" title="1. 内容不会被发布工具绑死"></a>1. 内容不会被发布工具绑死</h3><p>如果以后我不再用 Hexo，而改用其他博客系统，那么：</p>
+<ul>
+<li>Obsidian 里的目录结构依然成立</li>
+<li>草稿和正式文章的分层依然成立</li>
+<li>图片和模板体系也依然成立</li>
+</ul>
+<p>换句话说：</p>
+<p><strong>发布工具是可替换的，内容主库才是长期资产。</strong></p>
+<h3 id="2-写作和发布可以分别优化"><a href="#2-写作和发布可以分别优化" class="headerlink" title="2. 写作和发布可以分别优化"></a>2. 写作和发布可以分别优化</h3><p>结构分开之后，我可以分别优化两端，而不用互相牵连。</p>
+<h4 id="写作层可以优化："><a href="#写作层可以优化：" class="headerlink" title="写作层可以优化："></a>写作层可以优化：</h4><ul>
+<li>模板</li>
+<li>frontmatter 规范</li>
+<li>标签体系</li>
+<li>草稿流程</li>
+<li>双链和知识组织</li>
+</ul>
+<h4 id="发布层可以优化："><a href="#发布层可以优化：" class="headerlink" title="发布层可以优化："></a>发布层可以优化：</h4><ul>
+<li>主题</li>
+<li>SEO</li>
+<li>permalink</li>
+<li>分类页</li>
+<li>部署流程</li>
+</ul>
+<p>这会比把所有问题都堆进同一个目录里清晰得多。</p>
+<h3 id="3-更符合“知识沉淀到文章发布”的自然流程"><a href="#3-更符合“知识沉淀到文章发布”的自然流程" class="headerlink" title="3. 更符合“知识沉淀到文章发布”的自然流程"></a>3. 更符合“知识沉淀到文章发布”的自然流程</h3><p>并不是所有笔记都应该直接公开。</p>
+<p>更合理的流程应该是：</p>
+<ol>
+<li>先在知识库里记录和沉淀</li>
+<li>再从中提炼出值得公开表达的主题</li>
+<li>写成结构化文章</li>
+<li>最后再交给博客系统发布</li>
+</ol>
+<p>也就是说：</p>
+<p><strong>知识库不是博客，博客也不应该等于知识库。</strong></p>
+<p>两者相关，但不应该完全重叠。</p>
+<h2 id="七、这套方案适合谁，不适合谁"><a href="#七、这套方案适合谁，不适合谁" class="headerlink" title="七、这套方案适合谁，不适合谁"></a>七、这套方案适合谁，不适合谁</h2><h3 id="适合"><a href="#适合" class="headerlink" title="适合"></a>适合</h3><ul>
+<li>把 Obsidian 当长期知识库使用的人</li>
+<li>同时又想维护一个正式博客的人</li>
+<li>希望把“写作”和“发布”分开管理的人</li>
+<li>在意长期可维护性的人</li>
+</ul>
+<h3 id="不太适合"><a href="#不太适合" class="headerlink" title="不太适合"></a>不太适合</h3><ul>
+<li>只想快速搭一个一次性博客的人</li>
+<li>没有知识库需求，只想单纯写站点文章的人</li>
+<li>希望所有东西都尽量极简、尽量少分层的人</li>
+</ul>
+<p>如果你的目标只是“尽快有个博客能发文”，那直接在 Hexo 里写也完全可以。<br>但如果你已经明显同时拥有：</p>
+<ul>
+<li>知识沉淀需求</li>
+<li>草稿管理需求</li>
+<li>文章发布需求</li>
+</ul>
+<p>那分层会更合适。</p>
+<h2 id="八、我准备怎么落地这套方案"><a href="#八、我准备怎么落地这套方案" class="headerlink" title="八、我准备怎么落地这套方案"></a>八、我准备怎么落地这套方案</h2><p>从执行上，我不打算一开始就做大迁移，而是准备分几步慢慢落地。</p>
+<h3 id="第一步：建立博客内容区"><a href="#第一步：建立博客内容区" class="headerlink" title="第一步：建立博客内容区"></a>第一步：建立博客内容区</h3><p>先在 Obsidian 里建立：</p>
+<ul>
+<li><code>00-Ideas</code></li>
+<li><code>01-Drafts</code></li>
+<li><code>02-Posts</code></li>
+<li><code>04-Assets</code></li>
+<li><code>99-Templates</code></li>
+</ul>
+<h3 id="第二步：先跑通一两篇文章"><a href="#第二步：先跑通一两篇文章" class="headerlink" title="第二步：先跑通一两篇文章"></a>第二步：先跑通一两篇文章</h3><p>不急着整理全部历史内容，而是先拿 1~2 篇文章完整走一遍流程，确认：</p>
+<ul>
+<li>frontmatter 是否顺手</li>
+<li>图片路径是否稳定</li>
+<li>Hexo 预览是否正常</li>
+</ul>
+<h3 id="第三步：再逐步整理历史内容"><a href="#第三步：再逐步整理历史内容" class="headerlink" title="第三步：再逐步整理历史内容"></a>第三步：再逐步整理历史内容</h3><p>等新流程稳定后，再慢慢把旧内容分流到：</p>
+<ul>
+<li>知识笔记</li>
+<li>博客草稿</li>
+<li>正式文章</li>
+</ul>
+<p>这样做的好处是：</p>
+<ul>
+<li>风险低</li>
+<li>可回退</li>
+<li>不容易一次性把现有内容搞乱</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于我现在这种场景，更合理的方案不是把 Obsidian 和 Hexo 硬塞进同一个目录，而是让它们各自专注在自己最擅长的事情上：</p>
+<ul>
+<li>Obsidian 负责内容生产与沉淀</li>
+<li>Hexo 负责页面生成与发布</li>
+</ul>
+<p>真正需要连接的，只有正式文章和发布资源。</p>
+<p>这种结构也许不像“全部合并”那样直观，但它更清晰、更稳定，也更适合长期维护。</p>
+<p>如果内容只是短期管理，混在一起问题不大；<br>但如果目标是持续写作、持续沉淀、持续发布，那么把内容层和发布层分开，通常会是更好的选择。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">jionpz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/03/07/obsidian-hexo-workflow/">http://example.com/2026/03/07/obsidian-hexo-workflow/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">Jionpz</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Obsidian/">Obsidian</a><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/">工作流</a><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/05/27/c4d5d2ee/" title="群晖使用ZeroTier"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">群晖使用ZeroTier</div></div><div class="info-2"><div class="info-item-1">https://zahui.fan/posts/spi492/ 12345678910docker run -d           \  --name zerotier       \  --restart=always      \  --device=/dev/net/tun \  --net=host            \  --cap-add=NET_ADMIN   \  --cap-add=SYS_ADMIN   \  -v /volume1/docker/ZeroTier:/var/lib/zerotier-one \  registry.cn-hangzhou.aliyuncs.com/iuxt/zerotier-synology:1.14.0  </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">jionpz</div><div class="author-info-description">一个小小的网站</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jionpz"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/jionpz" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">一段段记录</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%AD%90"><span class="toc-number">1.</span> <span class="toc-text">引子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%83%B3%E6%8A%8A-Hexo-%E5%92%8C-Obsidian-%E6%94%BE%E5%9C%A8%E4%B8%80%E8%B5%B7"><span class="toc-number">2.</span> <span class="toc-text">一、为什么会想把 Hexo 和 Obsidian 放在一起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%B8%8D%E6%8E%A8%E8%8D%90%E6%8A%8A%E6%95%B4%E4%B8%AA-Hexo-%E9%A1%B9%E7%9B%AE%E6%90%AC%E8%BF%9B-Vault"><span class="toc-number">3.</span> <span class="toc-text">二、为什么我不推荐把整个 Hexo 项目搬进 Vault</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%86%85%E5%AE%B9%E5%B1%82%E5%92%8C%E5%B7%A5%E7%A8%8B%E5%B1%82%E4%B8%8D%E6%98%AF%E4%B8%80%E5%9B%9E%E4%BA%8B"><span class="toc-number">3.1.</span> <span class="toc-text">1. 内容层和工程层不是一回事</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Obsidian-%E4%BC%9A%E8%A2%AB%E5%B7%A5%E7%A8%8B%E6%96%87%E4%BB%B6%E6%B1%A1%E6%9F%93"><span class="toc-number">3.2.</span> <span class="toc-text">2. Obsidian 会被工程文件污染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%8D%89%E7%A8%BF%E5%92%8C%E6%AD%A3%E5%BC%8F%E6%96%87%E7%AB%A0%E5%AE%B9%E6%98%93%E6%B7%B7%E5%9C%A8%E4%B8%80%E8%B5%B7"><span class="toc-number">3.3.</span> <span class="toc-text">3. 草稿和正式文章容易混在一起</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%88%91%E6%9B%B4%E6%8E%A8%E8%8D%90%E7%9A%84%E6%96%B9%E6%A1%88%EF%BC%9A%E5%86%85%E5%AE%B9%E5%B1%82%E4%B8%8E%E5%8F%91%E5%B8%83%E5%B1%82%E5%88%86%E7%A6%BB"><span class="toc-number">4.</span> <span class="toc-text">三、我更推荐的方案：内容层与发布层分离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Obsidian-%E8%B4%9F%E8%B4%A3%E4%BB%80%E4%B9%88"><span class="toc-number">4.1.</span> <span class="toc-text">Obsidian 负责什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-%E8%B4%9F%E8%B4%A3%E4%BB%80%E4%B9%88"><span class="toc-number">4.2.</span> <span class="toc-text">Hexo 负责什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%88%91%E9%87%87%E7%94%A8%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">5.</span> <span class="toc-text">四、我采用的目录结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Obsidian-%E4%BE%A7%EF%BC%9A%E5%86%85%E5%AE%B9%E4%B8%BB%E5%BA%93"><span class="toc-number">5.1.</span> <span class="toc-text">Obsidian 侧：内容主库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-%E4%BE%A7%EF%BC%9A%E5%8F%91%E5%B8%83%E5%B7%A5%E7%A8%8B"><span class="toc-number">5.2.</span> <span class="toc-text">Hexo 侧：发布工程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%BA%94%E8%AF%A5%E6%80%8E%E6%A0%B7%E6%B5%81%E5%8A%A8"><span class="toc-number">6.</span> <span class="toc-text">五、一篇文章应该怎样流动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E5%A5%97%E7%BB%93%E6%9E%84%E6%9B%B4%E9%80%82%E5%90%88%E9%95%BF%E6%9C%9F%E7%BB%B4%E6%8A%A4"><span class="toc-number">7.</span> <span class="toc-text">六、为什么这套结构更适合长期维护</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%86%85%E5%AE%B9%E4%B8%8D%E4%BC%9A%E8%A2%AB%E5%8F%91%E5%B8%83%E5%B7%A5%E5%85%B7%E7%BB%91%E6%AD%BB"><span class="toc-number">7.1.</span> <span class="toc-text">1. 内容不会被发布工具绑死</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%86%99%E4%BD%9C%E5%92%8C%E5%8F%91%E5%B8%83%E5%8F%AF%E4%BB%A5%E5%88%86%E5%88%AB%E4%BC%98%E5%8C%96"><span class="toc-number">7.2.</span> <span class="toc-text">2. 写作和发布可以分别优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E4%BD%9C%E5%B1%82%E5%8F%AF%E4%BB%A5%E4%BC%98%E5%8C%96%EF%BC%9A"><span class="toc-number">7.2.1.</span> <span class="toc-text">写作层可以优化：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%B1%82%E5%8F%AF%E4%BB%A5%E4%BC%98%E5%8C%96%EF%BC%9A"><span class="toc-number">7.2.2.</span> <span class="toc-text">发布层可以优化：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9B%B4%E7%AC%A6%E5%90%88%E2%80%9C%E7%9F%A5%E8%AF%86%E6%B2%89%E6%B7%80%E5%88%B0%E6%96%87%E7%AB%A0%E5%8F%91%E5%B8%83%E2%80%9D%E7%9A%84%E8%87%AA%E7%84%B6%E6%B5%81%E7%A8%8B"><span class="toc-number">7.3.</span> <span class="toc-text">3. 更符合“知识沉淀到文章发布”的自然流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E8%BF%99%E5%A5%97%E6%96%B9%E6%A1%88%E9%80%82%E5%90%88%E8%B0%81%EF%BC%8C%E4%B8%8D%E9%80%82%E5%90%88%E8%B0%81"><span class="toc-number">8.</span> <span class="toc-text">七、这套方案适合谁，不适合谁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%90%88"><span class="toc-number">8.1.</span> <span class="toc-text">适合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%A4%AA%E9%80%82%E5%90%88"><span class="toc-number">8.2.</span> <span class="toc-text">不太适合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%88%91%E5%87%86%E5%A4%87%E6%80%8E%E4%B9%88%E8%90%BD%E5%9C%B0%E8%BF%99%E5%A5%97%E6%96%B9%E6%A1%88"><span class="toc-number">9.</span> <span class="toc-text">八、我准备怎么落地这套方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E5%8C%BA"><span class="toc-number">9.1.</span> <span class="toc-text">第一步：建立博客内容区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%85%88%E8%B7%91%E9%80%9A%E4%B8%80%E4%B8%A4%E7%AF%87%E6%96%87%E7%AB%A0"><span class="toc-number">9.2.</span> <span class="toc-text">第二步：先跑通一两篇文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E5%86%8D%E9%80%90%E6%AD%A5%E6%95%B4%E7%90%86%E5%8E%86%E5%8F%B2%E5%86%85%E5%AE%B9"><span class="toc-number">9.3.</span> <span class="toc-text">第三步：再逐步整理历史内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">10.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/07/obsidian-hexo-workflow/" title="Hexo 与 Obsidian 协同方案">Hexo 与 Obsidian 协同方案</a><time datetime="2026-03-07T14:30:00.000Z" title="发表于 2026-03-07 22:30:00">2026-03-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/27/c4d5d2ee/" title="群晖使用ZeroTier">群晖使用ZeroTier</a><time datetime="2025-05-27T14:50:09.000Z" title="发表于 2025-05-27 22:50:09">2025-05-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/15/0/" title="无标题">无标题</a><time datetime="2025-01-15T12:55:59.996Z" title="发表于 2025-01-15 20:55:59">2025-01-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/09/e49205b4/" title="KUKA机器人数据采集方案探索">KUKA机器人数据采集方案探索</a><time datetime="2024-11-09T10:54:53.000Z" title="发表于 2024-11-09 18:54:53">2024-11-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/11/04/d4d0dc7b/" title="quick-guide">quick-guide</a><time datetime="2024-11-04T13:45:01.000Z" title="发表于 2024-11-04 21:45:01">2024-11-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By jionpz</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>(r=>{r.imageLazyLoadSetting.processImages=t;var a=r.imageLazyLoadSetting.isSPA,o=r.imageLazyLoadSetting.preloadRatio||1,d=i();function i(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(t){(a||t)&&(d=i());for(var e,n=0;n<d.length;n++)0<=(e=(e=d[n]).getBoundingClientRect()).bottom&&0<=e.left&&e.top<=(r.innerHeight*o||document.documentElement.clientHeight*o)&&(()=>{var t,e,a,o,i=d[n];e=function(){d=d.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).dataset.loaded||(t.hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(a=new Image,o=t.getAttribute("data-original"),a.onload=function(){t.src=o,t.removeAttribute("data-original"),t.setAttribute("data-loaded",!0),e&&e()},a.onerror=function(){t.removeAttribute("data-original"),t.setAttribute("data-loaded",!1),t.src=o},t.src!==o&&(a.src=o)))})()}function e(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",e),r.addEventListener("resize",e),r.addEventListener("orientationchange",e)})(this);</script></body></html>
